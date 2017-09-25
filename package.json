@@ -1,0 +1,16 @@
+{
+  "name": "todo-list-app",
+  "version": "1.0.0",
+  "main": "index.html",
+  "author": "eliass95",
+  "dependencies": {
+    "normalize.css": "^7.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.0",
+    "gulp-watch": "^4.3.11",
+    "postcss-import": "^11.0.0"
+  }
+}
