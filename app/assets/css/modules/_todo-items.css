@@ -1,0 +1,18 @@
+.todo-items {
+    padding: 0; 
+}
+
+.todo-items li {
+    width: 100%;
+    padding: 15px;
+    float: left;
+    list-style: none;
+    margin-bottom: 5px;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 5px;
+}
+
+.todo-items__done {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, .4);
+}
