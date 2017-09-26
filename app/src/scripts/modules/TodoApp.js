@@ -1,14 +1,15 @@
 class TodoApp {
   constructor() {
-    this.itens;
+    this.itens = document.querySelector('.todo-items');
+    this.itensArray;
     this.addEvents();
   }
 
   addEvents() {
-    this.itens = document.querySelectorAll('.todo-items li');
+    this.itensArray = document.querySelectorAll('.todo-items li');
 
-    for (var i = 0; i < this.itens.length; i++) {
-      this.itens[i].children[0].addEventListener('click', this.checkItem);
+    for (var i = 0; i < this.itensArray.length; i++) {
+      this.itensArray[i].children[0].addEventListener('click', this.checkItem);
     }
   }
 
@@ -19,6 +20,15 @@ class TodoApp {
     } else {
       e.target.parentNode.classList.remove("todo-items__done");
       console.log('deselecionado!');
+    }
+  };
+
+  addNewItem(textAddItem) {
+    if (textAddItem.value != '') {
+      var newItem = `<li><input type="checkbox">${textAddItem.value}</li>`   
+      this.itens.innerHTML += newItem;
+      textAddItem.value = "";
+      this.addEvents();
     }
   };
 }

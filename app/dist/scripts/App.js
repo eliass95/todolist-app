@@ -79,24 +79,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var todo = new _TodoApp2.default();
 var btnAddItem = document.querySelector('#add-item-btn');
 var textAddItem = document.querySelector('#add-item-text');
-var itens = document.querySelector('.todo-items');
 
-btnAddItem.addEventListener('click', addNewItem);
+btnAddItem.addEventListener('click', function () {
+  todo.addNewItem(textAddItem);
+});
 
+textAddItem.focus();
 document.onkeydown = function () {
   if (window.event.keyCode == '13') {
     btnAddItem.focus();
-  }
-};
-
-function addNewItem() {
-  console.log(textAddItem.value);
-
-  if (textAddItem != '') {
-    var newItem = '<li><input type="checkbox">' + textAddItem.value + '</li>';
-    itens.innerHTML += newItem;
-    textAddItem.value = "";
-    todo.addEvents();
+    window.setTimeout(function () {
+      textAddItem.focus();
+    }, 50);
   }
 };
 
@@ -119,17 +113,18 @@ var TodoApp = function () {
   function TodoApp() {
     _classCallCheck(this, TodoApp);
 
-    this.itens;
+    this.itens = document.querySelector('.todo-items');
+    this.itensArray;
     this.addEvents();
   }
 
   _createClass(TodoApp, [{
     key: 'addEvents',
     value: function addEvents() {
-      this.itens = document.querySelectorAll('.todo-items li');
+      this.itensArray = document.querySelectorAll('.todo-items li');
 
-      for (var i = 0; i < this.itens.length; i++) {
-        this.itens[i].children[0].addEventListener('click', this.checkItem);
+      for (var i = 0; i < this.itensArray.length; i++) {
+        this.itensArray[i].children[0].addEventListener('click', this.checkItem);
       }
     }
   }, {
@@ -141,6 +136,16 @@ var TodoApp = function () {
       } else {
         e.target.parentNode.classList.remove("todo-items__done");
         console.log('deselecionado!');
+      }
+    }
+  }, {
+    key: 'addNewItem',
+    value: function addNewItem(textAddItem) {
+      if (textAddItem.value != '') {
+        var newItem = '<li><input type="checkbox">' + textAddItem.value + '</li>';
+        this.itens.innerHTML += newItem;
+        textAddItem.value = "";
+        this.addEvents();
       }
     }
   }]);
