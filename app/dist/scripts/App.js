@@ -70,13 +70,28 @@
 "use strict";
 
 
-var _test = __webpack_require__(1);
+var _TodoApp = __webpack_require__(1);
 
-var _test2 = _interopRequireDefault(_test);
+var _TodoApp2 = _interopRequireDefault(_TodoApp);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var a = new _test2.default();
+var todo = new _TodoApp2.default();
+var btnAddItem = document.querySelector('#add-item-btn');
+btnAddItem.addEventListener('click', addNewItem);
+
+function addNewItem() {
+  var textAddItem = document.querySelector('#add-item-text');
+  var itens = document.querySelector('.todo-items');
+  console.log(textAddItem.value);
+
+  if (textAddItem != '') {
+    var newItem = '<li><input type="checkbox">' + textAddItem.value + '</li>';
+    itens.innerHTML += newItem;
+    textAddItem.value = "";
+    todo.addEvents();
+  }
+};
 
 /***/ }),
 /* 1 */
@@ -86,18 +101,47 @@ var a = new _test2.default();
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Test = function Test() {
-    _classCallCheck(this, Test);
+var TodoApp = function () {
+  function TodoApp() {
+    _classCallCheck(this, TodoApp);
 
-    alert('worked!');
-};
+    this.itens;
+    this.addEvents();
+  }
 
-exports.default = Test;
+  _createClass(TodoApp, [{
+    key: 'addEvents',
+    value: function addEvents() {
+      this.itens = document.querySelectorAll('.todo-items li');
+
+      for (var i = 0; i < this.itens.length; i++) {
+        this.itens[i].children[0].addEventListener('click', this.checkItem);
+      }
+    }
+  }, {
+    key: 'checkItem',
+    value: function checkItem(e) {
+      if (e.target.checked) {
+        console.log('selecionado');
+        e.target.parentNode.classList.add("todo-items__done");
+      } else {
+        e.target.parentNode.classList.remove("todo-items__done");
+        console.log('deselecionado!');
+      }
+    }
+  }]);
+
+  return TodoApp;
+}();
+
+exports.default = TodoApp;
 
 /***/ })
 /******/ ]);

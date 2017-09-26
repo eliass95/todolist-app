@@ -12,17 +12,15 @@
         <h1 class="title">MyTodoList</h1>
         <div class="add-item">
             <form action="">
-                <input class="add-item__text" type="text" name="add-item" id="add-item" placeholder="Adicione uma tarefa">
-                <input class="add-item__btn" type="button" value="+" >
+                <input class="add-item__text" id="add-item-text" type="text" name="add-item" placeholder="Adicione uma tarefa">
+                <input class="add-item__btn" id="add-item-btn" type="button" value="+" >
             </form>
         </div>
     
         <ul class="todo-items">
-            <li>Primeira Tarefa</li>
-            <li>Segunda Tarefa</li>
-            <li class="todo-items__done">Terceira Tarefa</li>
-            <li>Quarta Tarefa</li>
-            <li class="todo-items__done">Quinta Tarefa</li>
+            <li><input type="checkbox"> Primeira Tarefa</li>
+            <li><input type="checkbox"> Primeira Tarefa</li>
+            <li><input type="checkbox"> Primeira Tarefa</li>
         </ul>
     </div>
     <script src="dist/scripts/App.js"></script>
