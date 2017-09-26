@@ -5,8 +5,22 @@
     bottom: 0;
     right: 0;
     overflow: auto;
-    background-image: url(../assets/img/bg.jpg);
+    background-image: url(../img/bg-blur.jpg);
     background-repeat: no-repeat;
     background-size:     cover;                      
     padding: 15px;
+
 }
+
+@media (min-width: 600px) {
+    .container {
+       padding: 5% 15%;
+    }
+}
+
+@media (min-width: 800px) {
+    .container {
+       padding: 5% 25%;
+    }
+}
+
