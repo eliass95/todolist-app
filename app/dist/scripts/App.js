@@ -78,11 +78,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var todo = new _TodoApp2.default();
 var btnAddItem = document.querySelector('#add-item-btn');
+var textAddItem = document.querySelector('#add-item-text');
+var itens = document.querySelector('.todo-items');
+
 btnAddItem.addEventListener('click', addNewItem);
 
+document.onkeydown = function () {
+  if (window.event.keyCode == '13') {
+    btnAddItem.focus();
+  }
+};
+
 function addNewItem() {
-  var textAddItem = document.querySelector('#add-item-text');
-  var itens = document.querySelector('.todo-items');
   console.log(textAddItem.value);
 
   if (textAddItem != '') {
