@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,13 +70,111 @@
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _TodoList = __webpack_require__(1);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var TodoItem = function () {
+    function TodoItem(text) {
+        _classCallCheck(this, TodoItem);
+
+        this.text = text;
+        this.done = false;
+        this.createdAt = new Date().getTime();
+        this.finishTime = null;
+        this.element = document.createElement("li");
+        this.render();
+        this.events();
+    }
+
+    _createClass(TodoItem, [{
+        key: "setAttributes",
+        value: function setAttributes(data) {
+            this.text = data.text;
+            this.done = data.done;
+            this.createdAt = data.createdAt;
+            this.finishTime = data.finishTime;
+            this.render();
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var input = '';
+            if (this.done) {
+                input = "<input type=\"checkbox\" class=\"todo-items__done\" checked>" + this.text;
+                this.element.classList.add("todo-items__done");
+            } else {
+                input = "<input type=\"checkbox\">" + this.text;
+                this.element.classList.remove("todo-items__done");
+            }
+            this.element.innerHTML = input;
+        }
+    }, {
+        key: "finishTask",
+        value: function finishTask() {
+            this.done = true;
+            this.finishTime = new Date().getTime();
+            this.render();
+            this.saveToLocalStorage();
+        }
+    }, {
+        key: "unfinishTask",
+        value: function unfinishTask() {
+            this.done = false;
+            this.render();
+            this.saveToLocalStorage();
+        }
+    }, {
+        key: "events",
+        value: function events() {
+            var _this = this;
+
+            this.element.addEventListener('click', function (e) {
+                if (e.target.nodeName === 'INPUT') {
+                    if (_this.done) {
+                        _this.unfinishTask();
+                    } else {
+                        _this.finishTask();
+                    }
+                }
+            });
+        }
+    }, {
+        key: "saveToLocalStorage",
+        value: function saveToLocalStorage() {
+            var params = {
+                text: this.text,
+                done: this.done,
+                createdAt: this.createdAt,
+                finishTime: this.finishTime
+            };
+            localStorage.setItem(params.createdAt, JSON.stringify(params));
+        }
+    }]);
+
+    return TodoItem;
+}();
+
+exports.default = TodoItem;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _TodoList = __webpack_require__(2);
 
 var _TodoList2 = _interopRequireDefault(_TodoList);
 
-var _TodoItem = __webpack_require__(2);
+var _TodoItem = __webpack_require__(0);
 
 var _TodoItem2 = _interopRequireDefault(_TodoItem);
 
@@ -121,51 +219,6 @@ var controller = new TodoController();
 console.log(controller.todoList);
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var TodoList = function () {
-    function TodoList(element) {
-        _classCallCheck(this, TodoList);
-
-        this.todolist = [];
-        this.todolistView = element;
-    }
-
-    _createClass(TodoList, [{
-        key: "add",
-        value: function add(todo) {
-            this.todolist.unshift(todo);
-            this.render();
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this = this;
-
-            this.todolist.forEach(function (item) {
-                _this.todolistView.append(item.element);
-            });
-        }
-    }]);
-
-    return TodoList;
-}();
-
-exports.default = TodoList;
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -178,62 +231,69 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _TodoItem = __webpack_require__(0);
+
+var _TodoItem2 = _interopRequireDefault(_TodoItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var TodoItem = function () {
-    function TodoItem(text) {
-        _classCallCheck(this, TodoItem);
+var TodoList = function () {
+    function TodoList(element) {
+        _classCallCheck(this, TodoList);
 
-        this.text = text;
-        this.done = false;
-        this.createdAt = new Date();
-        this.finishTime = null;
-        this.element = document.createElement("li");
-        this.updateElement();
-        this.events();
+        this.todolist = [];
+        this.todolistView = element;
+        this.fetchListFromLocalStorage();
+        this.render();
     }
 
-    _createClass(TodoItem, [{
-        key: 'updateElement',
-        value: function updateElement() {
-            this.element.innerHTML = '<input type="checkbox">' + this.text;
+    _createClass(TodoList, [{
+        key: 'add',
+        value: function add(todo) {
+            todo.saveToLocalStorage();
+            this.todolist.unshift(todo);
+            this.render();
         }
     }, {
-        key: 'finishTask',
-        value: function finishTask() {
-            this.done = true;
-            this.finishTime = new Date();
-        }
-    }, {
-        key: 'unfinishTask',
-        value: function unfinishTask() {
-            this.done = false;
-        }
-    }, {
-        key: 'events',
-        value: function events() {
+        key: 'render',
+        value: function render() {
             var _this = this;
 
-            this.element.addEventListener('click', function (e) {
-                if (e.target.nodeName === 'INPUT') {
-                    if (e.target.checked) {
-                        _this.finishTask();
-                        e.target.parentNode.classList.add("todo-items__done");
-                        console.log(_this);
-                    } else {
-                        _this.unfinishTask();
-                        e.target.parentNode.classList.remove("todo-items__done");
-                        console.log(_this);
+            this.todolist.forEach(function (item) {
+                _this.todolistView.append(item.element);
+            });
+        }
+    }, {
+        key: 'fetchListFromLocalStorage',
+        value: function fetchListFromLocalStorage() {
+            var localItems = [];
+            if (localStorage.length > 0) {
+                for (var key in localStorage) {
+                    var data = localStorage.getItem(key);
+                    if (typeof data === 'string') {
+                        var item = new _TodoItem2.default(data.text);
+                        item.setAttributes(JSON.parse(data));
+                        localItems.push(item);
                     }
                 }
+            }
+
+            localItems.sort(function (a, b) {
+                if (a.createdAt < b.createdAt) return 1;
+                if (a.createdAt > b.createdAt) return -1;
+                return 0;
             });
+
+            this.todolist = localItems;
         }
     }]);
 
-    return TodoItem;
+    return TodoList;
 }();
 
-exports.default = TodoItem;
+exports.default = TodoList;
 
 /***/ })
 /******/ ]);

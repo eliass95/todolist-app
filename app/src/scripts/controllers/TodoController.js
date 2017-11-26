@@ -22,7 +22,6 @@ class TodoController {
         this.itemText.value = '';
         console.log(item);
     }
-
 }
 
 var controller = new TodoController();

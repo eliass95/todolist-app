@@ -1,0 +1,8 @@
+{
+    "name": "TodoApp",
+    "short_name": "TodoApp",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "A simply todo list."
+  }

@@ -12,6 +12,10 @@
     border-radius: 5px;
 }
 
+.todo-items li:last-child {
+    margin-bottom: 50px;
+}
+
 .todo-items input[type="checkbox"] {
     margin-right: 10px;
     width: 12px;
