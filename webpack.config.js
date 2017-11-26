@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: "./app/src/scripts/App.js",
+    entry: "./app/src/scripts/controllers/TodoController.js",
     output: {
         path: path.resolve(__dirname, "./app/dist/scripts"),
         filename: "App.js"
